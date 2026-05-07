@@ -1,0 +1,111 @@
+pipeline {
+agent any
+
+environment {
+    DEV_IMAGE  = "yourdockerhub/dev:latest"
+    PROD_IMAGE = "yourdockerhub/prod:latest"
+}
+
+stages {
+
+    stage('Verify Environment') {
+        steps {
+            sh 'docker --version'
+            sh 'docker compose version || docker-compose --version'
+        }
+    }
+
+    stage('Build & Push Dev Image') {
+
+        when {
+            branch 'dev'
+        }
+
+        steps {
+
+            withCredentials([usernamePassword(
+                credentialsId: 'dockerhub-creds',
+                usernameVariable: 'DOCKER_USER',
+                passwordVariable: 'DOCKER_PASS'
+            )]) {
+
+                sh '''
+                chmod +x scripts/build.sh
+
+                export IMAGE_NAME=$DEV_IMAGE
+
+                ./scripts/build.sh
+                '''
+            }
+        }
+    }
+
+    stage('Deploy Dev') {
+
+        when {
+            branch 'dev'
+        }
+
+        steps {
+
+            sh '''
+            chmod +x scripts/deploy.sh
+
+            ./scripts/deploy.sh
+            '''
+        }
+    }
+
+    stage('Build & Push Prod Image') {
+
+        when {
+            branch 'main'
+        }
+
+        steps {
+
+            withCredentials([usernamePassword(
+                credentialsId: 'dockerhub-creds',
+                usernameVariable: 'DOCKER_USER',
+                passwordVariable: 'DOCKER_PASS'
+            )]) {
+
+                sh '''
+                chmod +x scripts/build.sh
+
+                export IMAGE_NAME=$PROD_IMAGE
+
+                ./scripts/build.sh
+                '''
+            }
+        }
+    }
+
+    stage('Deploy Prod') {
+
+        when {
+            branch 'main'
+        }
+
+        steps {
+
+            sh '''
+            chmod +x scripts/deploy.sh
+
+            ./scripts/deploy.sh
+            '''
+        }
+    }
+}
+
+post {
+
+    success {
+        echo 'Pipeline executed successfully!'
+    }
+
+    failure {
+        echo 'Pipeline failed!'
+    }
+}
+}

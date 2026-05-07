@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  frontend:
+    image: devamu/dev:latest
+    ports:
+      - "80:80"
