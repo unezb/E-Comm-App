@@ -1,8 +1,16 @@
 #!/bin/bash
 
-docker pull devamu/dev:latest
+set -e
 
-docker stop frontend || true
-docker rm frontend || true
+APP_DIR=/home/ubuntu/app
 
-docker run -d --name frontend -p 80:80 devamu/dev:latest
+cd $APP_DIR
+
+echo "Pulling latest image..."
+
+docker-compose pull
+
+echo "Restarting containers..."
+
+docker-compose down
+docker-compose up -d

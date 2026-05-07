@@ -2,8 +2,8 @@ pipeline {
 agent any
 
 environment {
-    DEV_IMAGE  = "yourdockerhub/dev:latest"
-    PROD_IMAGE = "yourdockerhub/prod:latest"
+    DEV_IMAGE  = "devamu/dev:latest"
+    PROD_IMAGE = "devamu/prod:latest"
 }
 
 stages {
