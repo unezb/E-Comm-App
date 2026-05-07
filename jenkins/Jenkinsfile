@@ -34,7 +34,7 @@ stages {
 
                 export IMAGE_NAME=$DEV_IMAGE
 
-                ./scripts/build.sh
+                ./scripts/build.sh $DEV_IMAGE
                 '''
             }
         }
@@ -75,7 +75,7 @@ stages {
 
                 export IMAGE_NAME=$PROD_IMAGE
 
-                ./scripts/build.sh
+                ./scripts/build.sh $PROD_IMAGE
                 '''
             }
         }
