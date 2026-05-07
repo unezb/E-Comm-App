@@ -2,6 +2,6 @@ version: '3'
 
 services:
   frontend:
-    image: devamu/dev:latest
+    image: devamu/ecomm-dev:latest
     ports:
       - "80:80"
