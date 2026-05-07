@@ -4,9 +4,11 @@ set -e
 
 APP_DIR=/opt/app
 
-cd $APP_DIR
+mkdir -p $APP_DIR
 
-cp docker-compose.yml $APP_DIR/
+cp docker-compose.yml $APP_DIR
+
+cd $APP_DIR
 
 echo "Pulling latest image..."
 
