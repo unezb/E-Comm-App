@@ -6,6 +6,8 @@ APP_DIR=/opt/app
 
 cd $APP_DIR
 
+cp docker-compose.yml $APP_DIR/
+
 echo "Pulling latest image..."
 
 docker-compose pull
