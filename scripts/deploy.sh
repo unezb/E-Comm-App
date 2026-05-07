@@ -2,7 +2,7 @@
 
 set -e
 
-APP_DIR=/home/ubuntu/app
+APP_DIR=/opt/app
 
 cd $APP_DIR
 
