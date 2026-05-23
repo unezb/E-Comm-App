@@ -19,6 +19,7 @@ The deployment workflow includes:
 
 # Architecture
 
+```
 GitHub Repository
         |
         v
@@ -34,7 +35,7 @@ AWS EC2 Instance
           v      v      v
       Static   Prometheus   Grafana
         App
-
+```
 ---
 
 # Technologies Used
